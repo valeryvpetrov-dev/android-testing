@@ -1,6 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.statistics
 
 import com.example.android.architecture.blueprints.todoapp.data.Task
+import org.hamcrest.CoreMatchers.`is`
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -15,8 +16,8 @@ class StatisticsUtilsTest {
 
         val result = getActiveAndCompletedStats(tasks)
 
-        assertEquals(100f, result.activeTasksPercent)
-        assertEquals(0f, result.completedTasksPercent)
+        assertThat(result.activeTasksPercent, `is`(100f))
+        assertThat(result.completedTasksPercent, `is`(0f))
     }
 
     @Test
@@ -27,8 +28,8 @@ class StatisticsUtilsTest {
 
         val result = getActiveAndCompletedStats(tasks)
 
-        assertEquals(0f, result.activeTasksPercent)
-        assertEquals(100f, result.completedTasksPercent)
+        assertThat(result.activeTasksPercent, `is`(0f))
+        assertThat(result.completedTasksPercent, `is`(100f))
     }
 
     @Test
@@ -43,8 +44,8 @@ class StatisticsUtilsTest {
 
         val result = getActiveAndCompletedStats(tasks)
 
-        assertEquals(40f, result.activeTasksPercent)
-        assertEquals(60f, result.completedTasksPercent)
+        assertThat(result.activeTasksPercent, `is`(40f))
+        assertThat(result.completedTasksPercent, `is`(60f))
     }
 
     @Test
@@ -53,17 +54,21 @@ class StatisticsUtilsTest {
 
         val result = getActiveAndCompletedStats(tasks)
 
-        assertEquals(0f, result.activeTasksPercent)
-        assertEquals(0f, result.completedTasksPercent)
+        assertThat(result.activeTasksPercent, `is`(0f))
+        assertThat(result.activeTasksPercent, `is`(0f))
     }
 
+    // test naming subjectUnderTest_actionOrInput_resultState
     @Test
     fun getActiveAndCompletedStats_null_returnsZeros() {
+        // GIVEN (ARRANGE) a null reference
         val tasks = null
 
+        // WHEN (ACT) you get stats from null
         val result = getActiveAndCompletedStats(tasks)
 
-        assertEquals(0f, result.activeTasksPercent)
-        assertEquals(0f, result.completedTasksPercent)
+        // THEN (ASSERT) there are 0% active and completed tasks
+        assertThat(result.activeTasksPercent, `is`(0f))
+        assertThat(result.completedTasksPercent, `is`(0f))
     }
 }
